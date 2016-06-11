@@ -1,0 +1,117 @@
+<div class="centered-section">
+  <div class="card-graph mdl-card mdl-shadow--2dp">
+    <div id="container"></div>
+  </div>
+</div>
+
+<script>
+var chart;
+var socket = io();
+socket.emit('listening', { id: {{id}} });
+// 'chat message' is for the id of the socket and $('#new-area') is for the text area
+socket.on('new data', function(msg){
+  switch(msg.type) {
+    case 'x':
+      chart.series[0].addPoint([msg.time, msg.data], true, false);
+      break;
+    case 'y':
+      chart.series[1].addPoint([msg.time, msg.data], true, false);
+      break;
+    case 'z':
+      chart.series[2].addPoint([msg.time, msg.data], true, false);
+      break;
+  }
+});
+$(function () {
+  $('#container').highcharts({
+    chart: {
+      zoomType: 'xy'
+    },
+    title: {
+      text: '{{id}}'
+    },
+    tooltip: {
+        shared: true,
+        crosshairs: true
+    },
+    xAxis: [{
+      labels: {
+        format: '{value:%H:%M:%S}',
+        rotation: 45,
+        align: 'left'
+      },
+      crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+      labels: {
+        format: '{value} x',
+        style: {
+          color: Highcharts.getOptions().colors[5]
+        }
+      },
+      title: {
+        text: 'X',
+        style: {
+          color: Highcharts.getOptions().colors[5]
+        }
+      }
+    }, { // Secondary yAxis
+      title: {
+        text: 'Y',
+        style: {
+          color: Highcharts.getOptions().colors[4]
+        }
+      },
+      labels: {
+        format: '{value} y',
+        style: {
+          color: Highcharts.getOptions().colors[4]
+        }
+      },
+      opposite: true
+    }, { // Third yAxis
+      title: {
+        text: 'Z',
+        style: {
+          color: Highcharts.getOptions().colors[7]
+        }
+      },
+      labels: {
+        format: '{value} z',
+        style: {
+          color: Highcharts.getOptions().colors[7]
+        }
+      },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true
+    },
+    series: [{
+      name: 'X',
+      type: 'line',
+      tooltip: {
+        valueSuffix: ' x'
+      },
+      color: Highcharts.getOptions().colors[5]
+    }, {
+      name: 'Y',
+      type: 'line',
+      yAxis: 1,
+      tooltip: {
+        valueSuffix: ' y'
+      },
+      color: Highcharts.getOptions().colors[4]
+    }, {
+      name: 'Z',
+      type: 'line',
+      yAxis: 2,
+      tooltip: {
+        valueSuffix: ' z'
+      },
+      color: Highcharts.getOptions().colors[7]
+    }]
+  });
+  chart = $("#container").highcharts();
+});
+</script>

@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Bioflix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/roboto.min.css">
+    <link rel="stylesheet" href="/stylesheets/mdl-icons.min.css">
+    <link rel="stylesheet" href="/stylesheets/mdl.min.css">
+    <link rel="stylesheet" href="/stylesheets/mdl-select.min.css"/>
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-    {{{body}}}
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <a class="mdl-layout-title" href="/">Transaction Generator</a>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        {{{body}}}
+      </main>
+    </div>
+    <a href="https://github.com/stanleyrya/transaction-generator" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
   </body>
+  <script type="text/javascript" src="/javascripts/highcharts.min.js"></script>
+  <script type="text/javascript" src="/javascripts/mdl.min.js"></script>
+  <script type="text/javascript" src="/javascripts/getmdl-select.min.js"></script>
 </html>

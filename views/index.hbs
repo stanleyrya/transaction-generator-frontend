@@ -1,2 +1,31 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="centered-section">
+  <div class="graph-card mdl-card">
+    <form id=input action="/generate">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+        <input class="mdl-textfield__input" type="text" id="method" value="GET" readonly tabIndex="0">
+        <label for="sample2">
+          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        </label>
+        <label for="method" class="mdl-textfield__label">Method</label>
+        <ul for="method" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+          <li class="mdl-menu__item">GET</li>
+          <li class="mdl-menu__item">POST</li>
+        </ul>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="url">
+        <label class="mdl-textfield__label" for="url">URL</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="numTransactions">
+        <label class="mdl-textfield__label" for="numTransactions">Total Transactions</label>
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tps">
+        <label class="mdl-textfield__label" for="tps">Transactions per Second</label>
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
+    </form>
+  </div>
+</div>

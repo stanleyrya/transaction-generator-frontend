@@ -5,10 +5,32 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./routes/index');
 
 var app = express();
+
+// call socket.io to the app
+app.io = require('socket.io')();
+
+var listeners = {};
+
+//start listen with socket.io
+app.io.on('connection', function(socket) {
+  console.log('a user connected');
+
+  // add to list of listeners
+  socket.on('listening', function(msg) {
+    console.log('new listener!', msg);
+    if(!listeners[msg.id]) listeners[msg.id] = [];
+    listeners[msg.id].push(socket);
+  });
+});
+
+// included for socket connection from routes
+app.use(function(req, res, next) {
+    req.listeners = listeners;
+    next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
