@@ -1,1 +1,1 @@
-# transaction-generator
+# transaction-generator-frontend

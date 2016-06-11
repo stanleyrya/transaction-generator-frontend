@@ -9,29 +9,6 @@ var index = require('./routes/index');
 
 var app = express();
 
-// call socket.io to the app
-app.io = require('socket.io')();
-
-var listeners = {};
-
-//start listen with socket.io
-app.io.on('connection', function(socket) {
-  console.log('a user connected');
-
-  // add to list of listeners
-  socket.on('listening', function(msg) {
-    console.log('new listener!', msg);
-    if(!listeners[msg.id]) listeners[msg.id] = [];
-    listeners[msg.id].push(socket);
-  });
-});
-
-// included for socket connection from routes
-app.use(function(req, res, next) {
-    req.listeners = listeners;
-    next();
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
