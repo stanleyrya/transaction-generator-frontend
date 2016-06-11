@@ -14,7 +14,7 @@ router.post('/generate', function(req, res, next) {
   var numTransactions = req.body.numTransactions;
   var tps = req.body.tps;
 
-  request.post('generator:3000/generate', function(error, response, body) {
+  request.post('transaction-generator:3000/generate', function(error, response, body) {
     if(error) {
       next(error);
     } else if(response.statusCode == 200) {
